@@ -22,7 +22,16 @@ public:
 	void BeginPlay() override;
 
 	UFUNCTION()
-		void OnFirePressed();
+	void OnFirePressed();
+
+	UFUNCTION(BlueprintCallable)
+	void DoChangeCamera();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void ShowCameraName(ACameraActor* Camera);
+
+	UFUNCTION(BlueprintNativeEvent)
+	void LoopThroughCameras(float timelapse);
 
 private:
 	int32 Counter;
