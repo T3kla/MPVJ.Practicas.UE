@@ -10,9 +10,22 @@ class PIZZA_API APowerUp : public AActor
 {
 	GENERATED_BODY()
 	
+private:
+	double Time = 0.;
+	float InitialZ = 0.f;
+
 public:	
 	UPROPERTY(EditAnywhere);
-	float RotationRate = 180.f;
+		float RotationRate = 180.f;
+
+	UPROPERTY(EditAnywhere);
+		float OscilationRate = 180.f;
+
+	UPROPERTY(EditAnywhere);
+		float OscilationAmplitude = 100.f;
+
+	UPROPERTY(EditAnywhere);
+		UCurveFloat* OscilationCurve;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 		USceneComponent* DefaultRoot;
