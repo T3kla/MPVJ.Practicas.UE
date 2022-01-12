@@ -13,6 +13,7 @@ class PIZZA_API APowerUp : public AActor
 private:
 	double Time = 0.;
 	float InitialZ = 0.f;
+	static size_t Portions;
 
 public:	
 	UPROPERTY(EditAnywhere);
@@ -33,6 +34,7 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 		USphereComponent* SphereTrigger;
 
+
 	APowerUp();
 
 protected:
@@ -40,4 +42,10 @@ protected:
 
 public:	
 	virtual void Tick(float DeltaTime) override;
+
+	UFUNCTION(BlueprintCallable, Category = "Damage")
+		void PickupPowerUp();
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "Damage")
+		void OnPickupPowerUpDoneEvent();
 };

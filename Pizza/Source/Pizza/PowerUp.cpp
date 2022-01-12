@@ -1,5 +1,7 @@
 #include "PowerUp.h"
 
+size_t APowerUp::Portions;
+
 APowerUp::APowerUp() {
     PrimaryActorTick.bCanEverTick = true;
 
@@ -13,7 +15,14 @@ APowerUp::APowerUp() {
     SphereTrigger->SetupAttachment(DefaultRoot);
 }
 
-void APowerUp::BeginPlay() { Super::BeginPlay(); }
+void APowerUp::BeginPlay() {
+    Super::BeginPlay(); 
+
+    FVector Location = GetActorLocation();
+    InitialZ = Location.Z;
+
+    Portions = 0;
+}
 
 void APowerUp::Tick(float DeltaTime) {
     Super::Tick(DeltaTime);
@@ -26,20 +35,27 @@ void APowerUp::Tick(float DeltaTime) {
     SetActorRotation(rot);
 
     // Oscilation
-    //if (!ensure(OscilationCurve))
-    //    return;
-    //
-    //float MaxTime, MinTime;
-    //OscilationCurve->GetTimeRange(MinTime, MaxTime);
+    if (!ensure(OscilationCurve))
+        return;
+    
+    float MaxTime, MinTime;
+    OscilationCurve->GetTimeRange(MinTime, MaxTime);
 
-    //float TimeInRange = fmod(Time, MaxTime);
-    //float Height = OscilationCurve->GetFloatValue(TimeInRange);
+    float TimeInRange = fmod(Time, MaxTime);
+    float Height = OscilationCurve->GetFloatValue(TimeInRange);
 
-    //FVector Location = GetActorLocation();
-    //Location.Z = InitialZ + Height * OscilationAmplitude;
+    FVector Location = GetActorLocation();
+    Location.Z = InitialZ + Height * OscilationAmplitude;
 
-    //SetActorLocation(Location);
+    SetActorLocation(Location);
 
-    //UE_LOG(LogTemp, Display, TEXT("Relative Location %0.3f %0.3f %0.3f")
-    //    , Location.X, Location.Y, Location.Z);
+    UE_LOG(LogTemp, Display, TEXT("Relative Location %0.3f %0.3f %0.3f")
+        , Location.X, Location.Y, Location.Z);
 }
+
+void APowerUp::PickupPowerUp() {
+    Portions++;
+
+    OnPickupPowerUpDoneEvent();
+}
+
