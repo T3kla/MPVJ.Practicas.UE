@@ -12,14 +12,17 @@ class PIZZA_API ADamage : public AActor
 	GENERATED_BODY()
 	
 public:	
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite);
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+		USceneComponent* DefaultRoot;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 		UStaticMeshComponent* Mesh;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite);
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 		USphereComponent* Sphere;
 
 	UFUNCTION()
-		void OnTriggerEnter();
+		void TriggerEnter(UPrimitiveComponent OnComponentHit, UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 
 	ADamage();
 

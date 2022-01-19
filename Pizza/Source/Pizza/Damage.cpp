@@ -4,10 +4,13 @@ ADamage::ADamage()
 {
 	PrimaryActorTick.bCanEverTick = true;
 
+	DefaultRoot = CreateDefaultSubobject<USceneComponent>(TEXT("DefaultRoot"));
+
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMeshComponent"));
-	Mesh->SetupAttachment(RootSceneComponent);
+	Mesh->SetupAttachment(DefaultRoot);
+
 	Sphere = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComponent"));
-	Sphere->SetupAttachment(RootSceneComponent);
+	Sphere->SetupAttachment(DefaultRoot);
 }
 
 void ADamage::BeginPlay()
@@ -22,6 +25,8 @@ void ADamage::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
-void ADamage::OnTriggerEnter()
+void ADamage::TriggerEnter(UPrimitiveComponent OnComponentHit, UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
+
+
 }
