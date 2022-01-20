@@ -26,7 +26,7 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite);
 		UBoxComponent* BoxComponent;
 
-	UPROPERTY(BlueprintAssignable, Category = "Tile")
+	UPROPERTY(BlueprintAssignable, Category = "Tile");
 		FSteppedTileEventSignature SteppedEvent;
 
 	ATileStep();

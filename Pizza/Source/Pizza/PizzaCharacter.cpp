@@ -7,6 +7,14 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
+void APizzaCharacter::BeginPlay()
+{
+	Portions = 1;
+
+	ACharacter::BeginPlay();
+}
+
+
 APizzaCharacter::APizzaCharacter()
 {
 	// Set size for collision capsule
@@ -76,3 +84,26 @@ void APizzaCharacter::TouchStopped(const ETouchIndex::Type FingerIndex, const FV
 	StopJumping();
 }
 
+void APizzaCharacter::PowerUp()
+{
+	Portions++;
+
+	FString str = FString::Printf(TEXT("Added Energy! Now it is: %d"), Portions);
+
+	if (GEngine)
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, str);
+}
+
+void APizzaCharacter::Damage()
+{
+	Portions--;
+
+
+	FString str = FString::Printf(TEXT("Subtracted Energy! Now it is: %d"), Portions);
+
+	if (GEngine)
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, str);
+
+	if (Portions <= 0)
+		Destroy();
+}

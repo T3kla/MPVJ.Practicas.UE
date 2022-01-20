@@ -1,6 +1,6 @@
 #include "PowerUp.h"
 
-size_t APowerUp::Portions;
+#include "PizzaCharacter.h"
 
 APowerUp::APowerUp() {
     PrimaryActorTick.bCanEverTick = true;
@@ -20,8 +20,6 @@ void APowerUp::BeginPlay() {
 
     FVector Location = GetActorLocation();
     InitialZ = Location.Z;
-
-    Portions = 0;
 }
 
 void APowerUp::Tick(float DeltaTime) {
@@ -53,9 +51,15 @@ void APowerUp::Tick(float DeltaTime) {
         , Location.X, Location.Y, Location.Z);
 }
 
-void APowerUp::PickupPowerUp() {
-    Portions++;
-
+void APowerUp::PickupPowerUp(AActor* OtherActor) {
     OnPickupPowerUpDoneEvent();
+
+
+    auto* character = Cast<APizzaCharacter>(OtherActor);
+    if (character)
+    {
+        Destroy();
+        character->PowerUp();
+    }
 }
 

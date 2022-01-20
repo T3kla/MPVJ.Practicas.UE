@@ -13,7 +13,6 @@ class PIZZA_API APowerUp : public AActor
 private:
 	double Time = 0.;
 	float InitialZ = 0.f;
-	static size_t Portions;
 
 public:	
 	UPROPERTY(EditAnywhere);
@@ -44,7 +43,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION(BlueprintCallable, Category = "Damage")
-		void PickupPowerUp();
+		void PickupPowerUp(AActor* OtherActor);
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "Damage")
 		void OnPickupPowerUpDoneEvent();

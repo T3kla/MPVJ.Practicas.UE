@@ -1,5 +1,7 @@
 #include "Damage.h"
 
+#include "PizzaCharacter.h"
+
 ADamage::ADamage()
 {
 	PrimaryActorTick.bCanEverTick = true;
@@ -25,8 +27,12 @@ void ADamage::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
-void ADamage::TriggerEnter(UPrimitiveComponent OnComponentHit, UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
+void ADamage::TriggerEnter(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-
-
+	auto *character = Cast<APizzaCharacter>(OtherActor);
+	if (character)
+	{
+		Destroy();
+		character->Damage();
+	}
 }

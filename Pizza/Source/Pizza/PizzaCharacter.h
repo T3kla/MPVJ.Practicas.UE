@@ -19,6 +19,8 @@ class APizzaCharacter : public ACharacter
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class USpringArmComponent* CameraBoom;
 
+	int Portions = 0;
+
 protected:
 
 	/** Called for side to side input */
@@ -36,10 +38,16 @@ protected:
 
 
 public:
+	virtual void BeginPlay() override;
+
 	APizzaCharacter();
 
 	/** Returns SideViewCameraComponent subobject **/
 	FORCEINLINE class UCameraComponent* GetSideViewCameraComponent() const { return SideViewCameraComponent; }
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
+
+	void PowerUp();
+
+	void Damage();
 };
