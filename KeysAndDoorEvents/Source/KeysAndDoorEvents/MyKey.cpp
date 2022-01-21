@@ -21,3 +21,9 @@ void AMyKey::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
+void AMyKey::Broadcast()
+{
+	SteppedEvent.Broadcast();
+
+	Destroy();
+}

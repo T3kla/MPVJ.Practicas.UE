@@ -8,7 +8,7 @@
 #include "Components/SphereComponent.h"
 #include "MyKey.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FNombreRandom, const FString&, ParametroRandom);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FKeyOverlap);
 
 UCLASS()
 class KEYSANDDOOREVENTS_API AMyKey : public AActor
@@ -24,10 +24,15 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite);
 	USphereComponent* SphereComponent;
 
+	UPROPERTY(BlueprintAssignable, Category = "Tile");
+	FKeyOverlap SteppedEvent;
+
 protected:
 	virtual void BeginPlay() override;
 
 public:	
 	virtual void Tick(float DeltaTime) override;
+
+	void Broadcast();
 
 };
