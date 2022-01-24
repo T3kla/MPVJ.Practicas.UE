@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
@@ -11,28 +9,30 @@
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FKeyOverlap);
 
 UCLASS()
-class KEYSANDDOOREVENTS_API AMyKey : public AActor
-{
-	GENERATED_BODY()
-	
-public:	
-	AMyKey();
+class KEYSANDDOOREVENTS_API AMyKey : public AActor {
+  GENERATED_BODY()
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite);
-	USceneComponent* RootSceneComponent;
+public:
+  AMyKey();
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite);
-	USphereComponent* SphereComponent;
+  UPROPERTY(VisibleAnywhere, BlueprintReadWrite);
+  USceneComponent *RootSceneComponent;
 
-	UPROPERTY(BlueprintAssignable, Category = "Tile");
-	FKeyOverlap SteppedEvent;
+  UPROPERTY(VisibleAnywhere, BlueprintReadWrite);
+  USphereComponent *SphereComponent;
+
+  UPROPERTY(BlueprintAssignable, Category = "Tile");
+  FKeyOverlap KeyOverlapEvent;
 
 protected:
-	virtual void BeginPlay() override;
+  virtual void BeginPlay() override;
 
-public:	
-	virtual void Tick(float DeltaTime) override;
+public:
+  virtual void Tick(float DeltaTime) override;
 
-	void Broadcast();
+  UFUNCTION()
+  void OnOverlap(UPrimitiveComponent *OverlappedComp, AActor *Other, UPrimitiveComponent *OtherComp,
+                 int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult);
 
+  void Broadcast();
 };
