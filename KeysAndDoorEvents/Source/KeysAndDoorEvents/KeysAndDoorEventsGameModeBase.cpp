@@ -8,21 +8,18 @@ void AKeysAndDoorEventsGameModeBase::BeginPlay()
 {
     Super::BeginPlay();
 
-    // Buscar llaves
+    // Search Keys
+    TArray<AActor *> KeyArray;
     UGameplayStatics::GetAllActorsOfClass(GetWorld(), AMyKey::StaticClass(), KeyArray);
 
-    // Buscar puertas
-    UGameplayStatics::GetAllActorsOfClass(GetWorld(), AMyDoor::StaticClass(), DoorArray);
+    TotalKeys = KeyArray.Num();
 
-    // Debug Arrays
     if (GEngine)
-        GEngine->AddOnScreenDebugMessage(
-            -1, 15.0f, FColor::Yellow,
-            FString::Printf(TEXT("KeyArray has %d keys.\n DoorArray has %d doors."), KeyArray.Num(),
-                            DoorArray.Num()));
+        GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow,
+                                         FString::Printf(TEXT("KeyArray has %d keys."), TotalKeys));
 
     // Subscribe to key's event
-    for (auto &i : KeyArray)
+    for (auto &&i : KeyArray)
         Cast<AMyKey>(i)->KeyOverlapEvent.AddDynamic(
             this, &AKeysAndDoorEventsGameModeBase::OnKeyRetrieved);
 }
@@ -30,7 +27,21 @@ void AKeysAndDoorEventsGameModeBase::BeginPlay()
 void AKeysAndDoorEventsGameModeBase::OnKeyRetrieved()
 {
     if (GEngine)
-        GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Lmao");
+        GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Key Retrieved");
 
-    // Check if keys retrieved >= keys total
+    CurrentKeys++;
+
+    // If retrieved all keys in the level
+    if (CurrentKeys < TotalKeys)
+        return;
+
+    TArray<AActor *> DoorArray;
+    UGameplayStatics::GetAllActorsOfClass(GetWorld(), AMyDoor::StaticClass(), DoorArray);
+
+    if (GEngine)
+        GEngine->AddOnScreenDebugMessage(
+            -1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Opening %d doors."), DoorArray.Num()));
+
+    for (auto &&i : DoorArray)
+        Cast<AMyDoor>(i)->ToggleOpen();
 }

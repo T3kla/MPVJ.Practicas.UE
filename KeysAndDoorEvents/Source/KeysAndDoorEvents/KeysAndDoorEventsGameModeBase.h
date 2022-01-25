@@ -13,11 +13,8 @@ class KEYSANDDOOREVENTS_API AKeysAndDoorEventsGameModeBase : public AGameModeBas
 {
     GENERATED_BODY()
 
-    UPROPERTY();
-    TArray<AActor *> KeyArray;
-
-    UPROPERTY();
-    TArray<AActor *> DoorArray;
+    int TotalKeys = 0;
+    int CurrentKeys = 0;
 
   public:
     AKeysAndDoorEventsGameModeBase();
