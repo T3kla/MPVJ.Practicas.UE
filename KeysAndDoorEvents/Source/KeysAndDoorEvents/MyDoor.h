@@ -6,36 +6,28 @@
 #include "MyDoor.generated.h"
 
 UCLASS()
-class KEYSANDDOOREVENTS_API AMyDoor : public AActor {
-  GENERATED_BODY()
+class KEYSANDDOOREVENTS_API AMyDoor : public AActor
+{
+    GENERATED_BODY()
 
-public:
-  AMyDoor();
+  public:
+    AMyDoor();
 
-  UPROPERTY(VisibleAnywhere, BlueprintReadWrite);
-  USceneComponent *Root;
+    UPROPERTY(VisibleAnywhere, BlueprintReadWrite);
+    USceneComponent *Root;
 
-  // UPROPERTY(VisibleAnywhere, BlueprintReadWrite);
-  // USceneComponent *Hinge;
+    UPROPERTY(BlueprintReadOnly);
+    bool IsOpen;
 
-  // UPROPERTY(VisibleAnywhere, BlueprintReadWrite);
-  // UStaticMeshComponent *Frame;
+  protected:
+    virtual void BeginPlay() override;
 
-  // UPROPERTY(VisibleAnywhere, BlueprintReadWrite);
-  // UStaticMeshComponent *Door;
+  public:
+    virtual void Tick(float DeltaTime) override;
 
-  UPROPERTY(BlueprintReadOnly);
-  bool IsOpen;
+    UFUNCTION(BlueprintCallable)
+    void ToggleOpen();
 
-protected:
-  virtual void BeginPlay() override;
-
-public:
-  virtual void Tick(float DeltaTime) override;
-
-  UFUNCTION(BlueprintCallable)
-  void ToggleOpen();
-
-  UFUNCTION(BlueprintImplementableEvent)
-  void StateChange(bool Status);
+    UFUNCTION(BlueprintImplementableEvent)
+    void StateChange(bool Status);
 };

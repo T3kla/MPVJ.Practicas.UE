@@ -1,5 +1,10 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
-
-
 #include "KeysAndDoorEventsGameModeBase.h"
 
+AKeysAndDoorEventsGameModeBase::AKeysAndDoorEventsGameModeBase()
+{
+}
+
+void AKeysAndDoorEventsGameModeBase::BeginPlay()
+{
+    Super::BeginPlay();
+}

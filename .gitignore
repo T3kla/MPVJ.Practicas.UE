@@ -73,3 +73,6 @@ Plugins/*/Intermediate/*
 # Cache files for the editor to use
 DerivedDataCache/*
 Intro/Content/StarterContent
+KeysAndDoorEvents/.vscode
+KeysAndDoorEvents/.ignore
+KeysAndDoorEvents/KeysAndDoorEvents.code-workspace
