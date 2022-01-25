@@ -36,5 +36,6 @@ class KEYSANDDOOREVENTS_API AMyKey : public AActor
                    UPrimitiveComponent *OtherComp, int32 OtherBodyIndex, bool bFromSweep,
                    const FHitResult &SweepResult);
 
+  private:
     void Broadcast();
 };

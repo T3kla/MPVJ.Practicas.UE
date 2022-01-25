@@ -3,12 +3,9 @@
 #include "CoreMinimal.h"
 
 #include "GameFramework/GameModeBase.h"
-
 #include "MyDoor.h"
 #include "MyKey.h"
-
 #include "Kismet/GameplayStatics.h"
-
 #include "KeysAndDoorEventsGameModeBase.generated.h"
 
 UCLASS()
